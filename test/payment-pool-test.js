@@ -244,6 +244,7 @@ contract('PaymentPool', function(accounts) {
 
       it("payee can withdraw up to their allotted amount from pool", async function() {
         let txn = await paymentPool.withdraw(paymentAmount, proof, { from: payee });
+        console.log('TXN1', txn);
 
         let withdrawEvent = txn.logs.find(log => log.event === 'PayeeWithdraw');
         assert.equal(withdrawEvent.args.payee, payee, 'event payee is correct');
@@ -263,6 +264,7 @@ contract('PaymentPool', function(accounts) {
       it("payee can make a withdrawal less than their allotted amount from the pool", async function() {
         let withdrawalAmount = 8;
         let txn = await paymentPool.withdraw(withdrawalAmount, proof, { from: payee });
+        console.log('TXN2', txn);
 
         let withdrawEvent = txn.logs.find(log => log.event === 'PayeeWithdraw');
         assert.equal(withdrawEvent.args.payee, payee, 'event payee is correct');
